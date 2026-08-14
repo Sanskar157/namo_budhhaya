@@ -8,5 +8,5 @@ if (!apiKey) {
 
 export const model = new ChatGoogleGenerativeAI({
   apiKey,
-  model: "gemini-1.5-pro", 
+  model: "gemini-3.1-flash-lite", 
 });
