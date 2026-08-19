@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { pdf } from "@react-pdf/renderer";
-import ReceiptDocument from "../../../lib/receipt-pdf";
+import ReceiptDocument from "../../../components/receipt-pdf";
 import React from "react";
 
 export async function POST(req: Request) {

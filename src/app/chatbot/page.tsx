@@ -27,7 +27,7 @@ export default function Chatbot() {
 
     try {
       const res = await axios.post("/api/chat", { message });
-      const textResponse = res.data.response?.kwargs?.content || "No response";
+      const textResponse = res.data.response || "No response";
       setResponse(textResponse);
     } catch (error) {
       console.error("Error:", error);

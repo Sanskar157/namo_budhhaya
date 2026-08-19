@@ -80,13 +80,13 @@
                 >
                   Chatbot
                 </motion.li>
-                <motion.li
+                {/* <motion.li
                   whileHover={{ scale: 1.1, color: "#facc15" }}
                   className="cursor-pointer transition duration-200"
                   onClick = {() => {router.push("/support")}}
                 >
                   Support
-                </motion.li>
+                </motion.li> */}
               </ul>
             </nav>
           </header>
