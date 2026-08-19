@@ -17,7 +17,7 @@
     "axios": "^1.8.4",
     "framer-motion": "^12.6.2",
     "install": "^0.13.0",
-    "langchain": "^0.3.20",
+    "langchain": "^1.5.9",
     "lucide-react": "^0.487.0",
     "namo-buddhaya": "file:",
     "next": "15.2.4",
