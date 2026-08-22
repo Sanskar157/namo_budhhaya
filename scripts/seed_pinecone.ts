@@ -17,15 +17,17 @@ async function main() {
   console.log(`Loaded ${extractedItems.length} verses. Preparing to embed...`);
 
   // 1. Initialize Local Transformers.js Pipeline
-  // This automatically downloads Xenova/all-MiniLM-L6-v2 (a ~22MB model) on the first run
-  console.log("Initializing local model...");
-  const extractor = await pipeline("feature-extraction", "Xenova/all-MiniLM-L6-v2");
+  // This automatically downloads Xenova/bge-base-en-v1.5 (a 768-dimension model) on the first run
+  console.log("Initializing local model (BAAI/bge-base-en-v1.5)...");
+  const extractor = await pipeline("feature-extraction", "Xenova/bge-base-en-v1.5");
 
   // 2. Initialize Native Pinecone Client
   const pinecone = new Pinecone({
     apiKey: process.env.PINECONE_API_KEY,
   });
   
+  // Important: Ensure the 'dhammapada' index in Pinecone is created with 
+  // Dimension = 768 and Metric = dotproduct
   const index = pinecone.Index("dhammapada"); 
 
   console.log("Uploading vectors to Pinecone in batches...");
@@ -49,8 +51,12 @@ async function main() {
     const pineconeVectors = batch.map((item: any, idx: number) => {
       const vector = vectorArrays[idx];
       
+      // Creating a unique ID that prevents overwriting if verseNumber is missing or duplicated.
+      // We fall back to a global index if verseNumber is not present.
+      const verseNum = item.metadata?.verseNumber || (i + idx + 1);
+      
       return {
-        id: `verse-${item.metadata.chapterNumber}-${item.metadata.verseNumber}`,
+        id: `verse-${verseNum}`,
         values: vector,
         metadata: {
           pageContent: item.pageContent, 
@@ -63,7 +69,7 @@ async function main() {
     await index.upsert(pineconeVectors);
   }
 
-  console.log("✅ Successfully seeded Pinecone with the Dhammapada verses!");
+  console.log("✅ Successfully seeded Pinecone with the Dhammapada verses (768 Dimensions)!");
 }
 
 main().catch((err) => {

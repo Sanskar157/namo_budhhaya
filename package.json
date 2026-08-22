@@ -9,12 +9,14 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@huggingface/inference": "^4.13.28",
     "@huggingface/transformers": "^4.2.0",
     "@langchain/core": "^1.2.8",
     "@langchain/google-genai": "^2.2.0",
     "@pinecone-database/pinecone": "^5.1.2",
     "@react-pdf/renderer": "^4.3.0",
     "axios": "^1.8.4",
+    "dotenv": "^17.4.2",
     "framer-motion": "^12.6.2",
     "install": "^0.13.0",
     "langchain": "^1.5.9",
